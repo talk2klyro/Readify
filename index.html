@@ -1,0 +1,138 @@
+<!<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Readify - Ebook Catalog</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+    h1 { text-align: center; color: #333; }
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
+    .search-bar, .category-filter, .sort-select { padding: 8px; font-size: 16px; }
+    .ebook-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+    .ebook-card { border: 1px solid #ccc; padding: 10px; border-radius: 8px; text-align: center; background: #fff; transition: transform 0.2s; }
+    .ebook-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .ebook-card img { max-width: 100%; border-radius: 5px; }
+    .pagination { margin-top: 20px; text-align: center; }
+    .pagination button { margin: 0 5px; padding: 8px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Readify - Ebook Catalog</h1>
+
+  <!-- Controls: Search + Category + Sort -->
+  <div class="controls">
+    <input type="text" id="searchInput" class="search-bar" placeholder="Search by title or author...">
+    <select id="categoryFilter" class="category-filter">
+      <option value="">All Categories</option>
+    </select>
+    <select id="sortSelect" class="sort-select">
+      <option value="">Sort By</option>
+      <option value="title">Title</option>
+      <option value="author">Author</option>
+      <option value="category">Category</option>
+    </select>
+  </div>
+
+  <!-- Ebook List -->
+  <div id="ebook-list" class="ebook-list"></div>
+
+  <!-- Pagination -->
+  <div class="pagination" id="pagination"></div>
+
+  <script>
+    let ebooks = [];
+    let filteredEbooks = [];
+    let currentPage = 1;
+    const itemsPerPage = 12;
+
+    async function loadEbooks() {
+      const response = await fetch('/data/ebooks.json'); 
+      ebooks = await response.json();
+      filteredEbooks = [...ebooks];
+      populateCategories();
+      renderPage();
+    }
+
+    function populateCategories() {
+      const categories = [...new Set(ebooks.map(book => book.category))];
+      const filter = document.getElementById('categoryFilter');
+      categories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        filter.appendChild(option);
+      });
+    }
+
+    function renderPage() {
+      const container = document.getElementById('ebook-list');
+      container.innerHTML = '';
+
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const booksToShow = filteredEbooks.slice(start, end);
+
+      booksToShow.forEach(book => {
+        const card = document.createElement('div');
+        card.className = 'ebook-card';
+        card.innerHTML = `
+          <img src="${book.cover}" alt="${book.title}">
+          <h3>${book.title}</h3>
+          <p><em>${book.author}</em></p>
+          <p>${book.description}</p>
+          <p><strong>${book.category}</strong></p>
+          <a href="${book.url}">View Book</a>
+        `;
+        container.appendChild(card);
+      });
+
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+      const totalPages = Math.ceil(filteredEbooks.length / itemsPerPage);
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        if (i === currentPage) btn.disabled = true;
+        btn.addEventListener('click', () => {
+          currentPage = i;
+          renderPage();
+        });
+        pagination.appendChild(btn);
+      }
+    }
+
+    function applyFilters() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const category = document.getElementById('categoryFilter').value;
+      filteredEbooks = ebooks.filter(book =>
+        (book.title.toLowerCase().includes(query) || book.author.toLowerCase().includes(query)) &&
+        (category === '' || book.category === category)
+      );
+      applySorting();
+      currentPage = 1;
+      renderPage();
+    }
+
+    function applySorting() {
+      const sortValue = document.getElementById('sortSelect').value;
+      if (sortValue) {
+        filteredEbooks.sort((a, b) => a[sortValue].localeCompare(b[sortValue]));
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+    document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+    document.getElementById('sortSelect').addEventListener('change', () => { 
+      applySorting(); 
+      renderPage(); 
+    });
+
+    loadEbooks();
+  </script>
+</body>
+</html>

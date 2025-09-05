@@ -1,0 +1,111 @@
+<!<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Readify - Ebook</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; max-width: 900px; }
+    h1 { color: #333; }
+    .ebook-cover { max-width: 300px; border-radius: 5px; }
+    .ebook-details { margin-top: 20px; }
+    .back-link { margin-top: 20px; display: inline-block; }
+    .related { margin-top: 40px; }
+    .related h2 { margin-bottom: 10px; }
+    .related-list { display: flex; gap: 20px; flex-wrap: wrap; }
+    .related-card { width: 150px; text-align: center; border: 1px solid #ccc; border-radius: 8px; padding: 10px; background: #fefefe; transition: transform 0.2s; }
+    .related-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .related-card img { max-width: 100%; border-radius: 5px; }
+    .nav-buttons { margin-top: 20px; display: flex; justify-content: space-between; }
+    .share-buttons { margin-top: 20px; }
+    .share-buttons button { margin-right: 10px; padding: 8px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div id="ebook-container">
+    <h1>Loading...</h1>
+  </div>
+  <a href="/index.html" class="back-link">← Back to Catalog</a>
+
+  <script>
+    async function loadEbook() {
+      const params = new URLSearchParams(window.location.search);
+      const ebookId = params.get('id');
+      if (!ebookId) return document.getElementById('ebook-container').innerHTML = '<p>Invalid ebook ID.</p>';
+
+      const response = await fetch('/data/ebooks.json');
+      const ebooks = await response.json();
+      const book = ebooks.find(b => b.id === ebookId);
+      if (!book) return document.getElementById('ebook-container').innerHTML = '<p>Ebook not found.</p>';
+
+      const container = document.getElementById('ebook-container');
+
+      // Related books (same category, exclude current book)
+      const related = ebooks.filter(b => b.category === book.category && b.id !== book.id).slice(0, 4);
+
+      // Next / Previous books (by index in full array)
+      const currentIndex = ebooks.findIndex(b => b.id === ebookId);
+      const prevBook = ebooks[currentIndex - 1] || null;
+      const nextBook = ebooks[currentIndex + 1] || null;
+
+      // Render
+      container.innerHTML = `
+        <h1>${book.title}</h1>
+        <img src="${book.cover}" alt="${book.title}" class="ebook-cover">
+        <div class="ebook-details">
+          <p><strong>Author:</strong> ${book.author}</p>
+          <p><strong>Category:</strong> ${book.category}</p>
+          <p>${book.description}</p>
+          <a href="#">Download / Read Now</a>
+        </div>
+
+        <div class="nav-buttons">
+          ${prevBook ? `<a href="/books/book.html?id=${prevBook.id}">← ${prevBook.title}</a>` : '<span></span>'}
+          ${nextBook ? `<a href="/books/book.html?id=${nextBook.id}">${nextBook.title} →</a>` : '<span></span>'}
+        </div>
+
+        <div class="share-buttons">
+          <button onclick="share('facebook')">Share on Facebook</button>
+          <button onclick="share('twitter')">Share on Twitter</button>
+          <button onclick="share('linkedin')">Share on LinkedIn</button>
+        </div>
+
+        <div class="related">
+          <h2>Related Books</h2>
+          <div class="related-list">
+            ${related.map(r => `
+              <div class="related-card">
+                <a href="/books/book.html?id=${r.id}">
+                  <img src="${r.cover}" alt="${r.title}">
+                  <p>${r.title}</p>
+                  <p><em>${r.author}</em></p>
+                </a>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function share(platform) {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.querySelector('h1').textContent);
+      let shareUrl = '';
+      switch(platform) {
+        case 'facebook':
+          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+          break;
+        case 'twitter':
+          shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+          break;
+        case 'linkedin':
+          shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+          break;
+      }
+      window.open(shareUrl, '_blank');
+    }
+
+    loadEbook();
+  </script>
+</body>
+</html>

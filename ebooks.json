@@ -1,0 +1,20 @@
+[
+  {
+    "id": "gatsby",
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "cover": "/covers/gatsby.jpg",
+    "description": "A classic novel set in the Jazz Age.",
+    "category": "Classics",
+    "url": "/books/book.html?id=gatsby"
+  },
+  {
+    "id": "dune",
+    "title": "Dune",
+    "author": "Frank Herbert",
+    "cover": "/covers/dune.jpg",
+    "description": "Epic science fiction adventure.",
+    "category": "Science Fiction",
+    "url": "/books/book.html?id=dune"
+  }
+]

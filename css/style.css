@@ -1,69 +1,96 @@
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #ffe3e3, #fff5e6);
-  color: #333;
   margin: 0;
+  background: #f8f8f8;
+  color: #333;
 }
 
 header {
-  text-align: center;
-  padding: 2rem;
-  background: linear-gradient(90deg, #ff7f50, #ffdd00);
-  color: #fff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-h1 {
-  margin: 0;
-}
-
-footer {
-  text-align: center;
+  background: linear-gradient(90deg, #ff6b6b, #f06595);
+  color: white;
   padding: 1rem;
-  background: #f1f1f1;
 }
 
-.grid {
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.catalog {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
   padding: 2rem;
 }
 
-.product-card {
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease;
+.book-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
 }
-
-.product-card:hover {
+.book-card:hover {
   transform: translateY(-5px);
 }
 
-.product-card img {
-  width: 100%;
-  display: block;
+.book-card img {
+  max-width: 100%;
+  border-radius: 8px;
 }
 
-.product-card .info {
-  padding: 1rem;
-  text-align: center;
+button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: #ff6b6b;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+button:hover {
+  background: #f06595;
 }
 
-.button {
-  display: inline-block;
-  padding: 0.7rem 1.5rem;
-  margin: 0.5rem;
-  border-radius: 1rem;
-  background: #ff7f50;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease;
+/* Ripple effect */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  pointer-events: none;
+}
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
 }
 
-.button:hover {
-  background: #ff4500;
-   }
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+.modal.active {
+  display: flex;
+}
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+}
+.close {
+  float: right;
+  cursor: pointer;
+}

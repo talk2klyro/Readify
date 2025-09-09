@@ -1,22 +1,38 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Vibrant eBook Store</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ebook Store</title>
+  <link rel="stylesheet" href="css/style.css" />
   <script defer src="js/main.js"></script>
 </head>
 <body>
   <header>
-    <h1>📚 Vibrant eBook Store</h1>
+    <nav>
+      <h1>Ebook Store</h1>
+      <ul>
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main>
-    <div id="product-grid" class="grid"></div>
+  <main id="catalog" class="catalog">
+    <!-- Books will be dynamically loaded from products.json -->
   </main>
 
-  <footer>
-    <p>Contact us: <a href="mailto:hi2denix@gmail.com">hi2denix@gmail.com</a> | <a href="https://wa.me/2349012728201" target="_blank">WhatsApp</a></p>
-  </footer>
+  <!-- Modal for Samples -->
+  <div id="sampleModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeSample()">&times;</span>
+      <h2 id="sampleTitle"></h2>
+      <p id="sampleAuthor"></p>
+      <div id="sampleText"></div>
+      <button onclick="purchaseFromSample()">Buy This Ebook</button>
+    </div>
+  </div>
+
+  <!-- Vercel Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

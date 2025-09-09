@@ -4,7 +4,24 @@
       "runtime": "nodejs18.x"
     }
   },
+  "builds": [
+    {
+      "src": "functions/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "functions/$1.js"
+    }
+  ],
   "analytics": {
     "enabled": true
+  },
+  "storage": {
+    "blobs": {
+      "driver": "vercel"
+    }
   }
 }

@@ -4,9 +4,99 @@
     "title": "Grow, Use, Heal: Northern Sage Herb Manual You Can Trust",
     "price": 2500,
     "currency": "NGN",
-    "cover": "/covers/placeholder-cover.jpg",
-    "file": "/blobs/placeholder-ebook.pdf",
-    "sample": "/blobs/placeholder-sample.pdf",
+    "cover": "/covers/sage-herb-manual.jpg",
+    "file": "/blobs/sage-herb-manual.pdf",
+    "sample": "/blobs/sage-herb-manual-sample.pdf",
     "description": "Discover the healing power of sage with this easy-to-follow Nigerian guide..."
+  },
+  {
+    "id": "herbal-secrets-nigeria",
+    "title": "Herbal Secrets of Nigeria: Remedies Passed Down Generations",
+    "price": 3000,
+    "currency": "NGN",
+    "cover": "https://i.postimg.cc/N0j4K6vY/IMG-20250820-WA0064.jpg",
+    "file": "/blobs/herbal-secrets-nigeria.pdf",
+    "sample": "/blobs/herbal-secrets-nigeria-sample.pdf",
+    "description": "An inspiring eBook exploring Nigeria’s traditional herbal remedies, cultural practices, and natural healing secrets you can apply at home."
+  },
+  {
+    "id": "roots-healing-handbook",
+    "title": "Roots of Healing: A Practical Herbal Handbook",
+    "price": 2800,
+    "currency": "NGN",
+    "cover": "https://i.postimg.cc/tgvzWs96/IMG-20250820-WA0078.jpg",
+    "file": "/blobs/roots-healing-handbook.pdf",
+    "sample": "/blobs/roots-healing-handbook-sample.pdf",
+    "description": "From roots to leaves, this guide covers the most effective herbs for wellness and everyday healing, simplified for beginners and enthusiasts."
+  },
+  {
+    "id": "african-healing-plants",
+    "title": "African Healing Plants: Illustrated Guide for Wellness",
+    "price": 3500,
+    "currency": "NGN",
+    "cover": "https://i.postimg.cc/rmdNJqpP/IMG-20250820-WA0081.jpg",
+    "file": "/blobs/african-healing-plants.pdf",
+    "sample": "/blobs/african-healing-plants-sample.pdf",
+    "description": "A beautifully illustrated guide featuring African herbs and plants, their uses, and step-by-step methods to integrate them into your lifestyle."
+  },
+  {
+    "id": "healing-with-leaves",
+    "title": "Healing with Leaves: Everyday Herbal Solutions",
+    "price": 2200,
+    "currency": "NGN",
+    "cover": "/covers/healing-with-leaves.jpg",
+    "file": "/blobs/healing-with-leaves.pdf",
+    "sample": "/blobs/healing-with-leaves-sample.pdf",
+    "description": "Simple recipes and remedies you can prepare using common leaves found in Nigerian kitchens and gardens."
+  },
+  {
+    "id": "barks-and-roots",
+    "title": "Barks and Roots: Nature’s Hidden Pharmacy",
+    "price": 3200,
+    "currency": "NGN",
+    "cover": "/covers/barks-and-roots.jpg",
+    "file": "/blobs/barks-and-roots.pdf",
+    "sample": "/blobs/barks-and-roots-sample.pdf",
+    "description": "Explore powerful roots and tree barks traditionally used for energy, immunity, and holistic healing."
+  },
+  {
+    "id": "herbal-tonics-guide",
+    "title": "Herbal Tonics Guide: Strengthen and Rejuvenate Naturally",
+    "price": 2700,
+    "currency": "NGN",
+    "cover": "/covers/herbal-tonics-guide.jpg",
+    "file": "/blobs/herbal-tonics-guide.pdf",
+    "sample": "/blobs/herbal-tonics-guide-sample.pdf",
+    "description": "Step-by-step instructions to prepare natural tonics and drinks that improve vitality and balance the body."
+  },
+  {
+    "id": "spiritual-herbs-nigeria",
+    "title": "Spiritual Herbs of Nigeria: Protection, Peace, Prosperity",
+    "price": 4000,
+    "currency": "NGN",
+    "cover": "/covers/spiritual-herbs-nigeria.jpg",
+    "file": "/blobs/spiritual-herbs-nigeria.pdf",
+    "sample": "/blobs/spiritual-herbs-nigeria-sample.pdf",
+    "description": "A cultural dive into herbs used for spiritual practices, blessings, and traditional ceremonies across Nigeria."
+  },
+  {
+    "id": "healing-soups-stews",
+    "title": "Healing Soups & Stews: Herbal Recipes for Everyday Cooking",
+    "price": 2600,
+    "currency": "NGN",
+    "cover": "/covers/healing-soups-stews.jpg",
+    "file": "/blobs/healing-soups-stews.pdf",
+    "sample": "/blobs/healing-soups-stews-sample.pdf",
+    "description": "Nutritious Nigerian recipes infused with medicinal herbs for wellness through food."
+  },
+  {
+    "id": "modern-herbal-medicine",
+    "title": "Modern Herbal Medicine: Blending Tradition with Science",
+    "price": 5000,
+    "currency": "NGN",
+    "cover": "/covers/modern-herbal-medicine.jpg",
+    "file": "/blobs/modern-herbal-medicine.pdf",
+    "sample": "/blobs/modern-herbal-medicine-sample.pdf",
+    "description": "An advanced eBook exploring the science-backed applications of traditional herbs in modern healthcare."
   }
-]
+    ]

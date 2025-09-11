@@ -1,21 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ebook Product</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ebook Store – Products</title>
+  <link rel="stylesheet" href="css/style.css">
   <script defer src="js/main.js"></script>
+  <style>
+    /* Quick inline for vibrant UI (can move to style.css later) */
+    body {
+      font-family: "Inter", sans-serif;
+      background: #fafafa;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(90deg, #22c55e, #3b82f6);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product-card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+    .product-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+    .product-card .info {
+      padding: 1rem 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card h2 {
+      font-size: 1.2rem;
+      margin: 0 0 0.5rem;
+      color: #111;
+    }
+    .product-card p.author {
+      font-size: 0.9rem;
+      color: #555;
+      margin: 0 0 0.75rem;
+    }
+    .product-card p.price {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin: 0 0 1rem;
+      color: #22c55e;
+    }
+    .product-card .buttons {
+      margin-top: auto;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .product-card button {
+      flex: 1;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .btn-details {
+      background: #e5e7eb;
+      color: #111;
+    }
+    .btn-details:hover {
+      background: #d1d5db;
+    }
+    .btn-buy {
+      background: #3b82f6;
+      color: white;
+    }
+    .btn-buy:hover {
+      background: #2563eb;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <nav>
-      <a href="index.html">⬅ Back</a>
-    </nav>
+    <h1>🌱 Readify Ebook Store</h1>
+    <p>Practical Nigerian-focused guides for farmers & agripreneurs</p>
   </header>
 
-  <main id="product-details">
-    <!-- Product details populated via JS -->
-  </main>
+  <section class="products" id="products-list">
+    <!-- Products will load here -->
+  </section>
+
+  <script>
+    async function loadProducts() {
+      const res = await fetch("products.json");
+      const products = await res.json();
+      const container = document.getElementById("products-list");
+
+      products.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <img src="${product.cover}" alt="${product.title}">
+          <div class="info">
+            <h2>${product.title}</h2>
+            <p class="author">${product.author}</p>
+            <p class="price">₦${product.price.toLocaleString()}</p>
+            <div class="buttons">
+              <button class="btn-details" onclick="viewDetails('${product.id}')">Details</button>
+              <button class="btn-buy" onclick="buyNow('${product.id}')">Buy Now</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function viewDetails(id) {
+      window.location.href = `product.html?id=${id}`;
+    }
+
+    function buyNow(id) {
+      // This will connect with generateLink.js → Flutterwave → redirect
+      window.location.href = `/api/generateLink?productId=${id}`;
+    }
+
+    loadProducts();
+  </script>
 </body>
 </html>

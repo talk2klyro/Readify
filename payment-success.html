@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Payment Success</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="center" style="padding: 3rem;">
+    <h2>Payment processing — one moment...</h2>
+    <p id="msg">Verifying your payment. Please wait.</p>
+    <div id="downloadBox" style="display:none;">
+      <p>Payment verified — your download link:</p>
+      <a id="downloadLink" class="btn-buy" href="#" target="_blank">Download eBook</a>
+    </div>
+  </main>
+
+  <script>
+    async function verify() {
+      const params = new URLSearchParams(window.location.search);
+      // tx_ref is used in the create payment flow
+      const tx_ref = params.get('tx_ref') || params.get('txref') || params.get('txrefid');
+      if (!tx_ref) {
+        document.getElementById('msg').textContent = 'No transaction reference found in the URL.';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/verifyPayment?tx_ref=${encodeURIComponent(tx_ref)}`);
+        const data = await res.json();
+
+        if (data?.success && data.downloadUrl) {
+          document.getElementById('msg').style.display = 'none';
+          document.getElementById('downloadLink').href = data.downloadUrl;
+          document.getElementById('downloadBox').style.display = 'block';
+        } else {
+          document.getElementById('msg').textContent = data?.message || 'Could not verify payment. If you were charged, please contact support (hi2denix@gmail.com) with your tx_ref: ' + tx_ref;
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('msg').textContent = 'An error occurred while verifying payment.';
+      }
+    }
+
+    verify();
+  </script>
+</body>
+</html>

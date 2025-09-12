@@ -1,0 +1,14 @@
+{
+  "functions": {
+    "functions/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "routes": [
+    { "src": "/api/(.*)", "dest": "functions/$1.js" }
+  ],
+  "analytics": { "enabled": true },
+  "storage": {
+    "blobs": { "driver": "vercel" }
+  }
+}

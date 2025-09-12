@@ -3,151 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ebook Store – Products</title>
+  <title>Ebook Details</title>
   <link rel="stylesheet" href="css/style.css">
   <script defer src="js/main.js"></script>
   <style>
-    /* Quick inline for vibrant UI (can move to style.css later) */
     body {
       font-family: "Inter", sans-serif;
+      margin: 0;
       background: #fafafa;
       color: #222;
-      margin: 0;
-      padding: 0;
     }
-    header {
-      background: linear-gradient(90deg, #22c55e, #3b82f6);
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 700;
-    }
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .product-card {
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1rem;
       background: white;
       border-radius: 1rem;
       box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: transform 0.2s ease;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
     }
-    .product-card:hover {
-      transform: translateY(-4px);
-    }
-    .product-card img {
+    .cover img {
       width: 100%;
-      height: 280px;
+      border-radius: 0.75rem;
       object-fit: cover;
     }
-    .product-card .info {
-      padding: 1rem 1.25rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .product-card h2 {
-      font-size: 1.2rem;
+    .details h1 {
+      font-size: 1.8rem;
       margin: 0 0 0.5rem;
       color: #111;
     }
-    .product-card p.author {
-      font-size: 0.9rem;
-      color: #555;
-      margin: 0 0 0.75rem;
-    }
-    .product-card p.price {
-      font-size: 1.1rem;
-      font-weight: bold;
+    .details p.author {
       margin: 0 0 1rem;
+      color: #555;
+    }
+    .price {
+      font-size: 1.5rem;
+      font-weight: bold;
       color: #22c55e;
+      margin-bottom: 1rem;
     }
-    .product-card .buttons {
-      margin-top: auto;
+    .meta {
+      font-size: 0.95rem;
+      color: #444;
+      margin-bottom: 1rem;
+    }
+    .description {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .highlights {
+      background: #f9fafb;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .highlights h3 {
+      margin-top: 0;
+    }
+    .buttons {
       display: flex;
-      gap: 0.5rem;
+      gap: 1rem;
     }
-    .product-card button {
+    .buttons a, .buttons button {
       flex: 1;
-      padding: 0.6rem;
+      padding: 0.75rem;
+      font-size: 1rem;
       border: none;
       border-radius: 0.5rem;
-      font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s ease;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
     }
-    .btn-details {
+    .btn-sample {
       background: #e5e7eb;
       color: #111;
-    }
-    .btn-details:hover {
-      background: #d1d5db;
     }
     .btn-buy {
       background: #3b82f6;
       color: white;
     }
-    .btn-buy:hover {
-      background: #2563eb;
+    .btn-buy:hover { background: #2563eb; }
+    .back-link {
+      display: block;
+      margin: 1rem auto;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #3b82f6;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🌱 Readify Ebook Store</h1>
-    <p>Practical Nigerian-focused guides for farmers & agripreneurs</p>
-  </header>
-
-  <section class="products" id="products-list">
-    <!-- Products will load here -->
-  </section>
+  <div class="container" id="product-details">
+    <!-- JS injects ebook details here -->
+  </div>
+  <a href="products.html" class="back-link">← Back to Store</a>
 
   <script>
-    async function loadProducts() {
+    async function loadProduct() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      if (!id) return;
+
       const res = await fetch("products.json");
       const products = await res.json();
-      const container = document.getElementById("products-list");
+      const product = products.find(p => p.id === id);
+      if (!product) return;
 
-      products.forEach(product => {
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
+      const container = document.getElementById("product-details");
+      container.innerHTML = `
+        <div class="cover">
           <img src="${product.cover}" alt="${product.title}">
-          <div class="info">
-            <h2>${product.title}</h2>
-            <p class="author">${product.author}</p>
-            <p class="price">₦${product.price.toLocaleString()}</p>
-            <div class="buttons">
-              <button class="btn-details" onclick="viewDetails('${product.id}')">Details</button>
-              <button class="btn-buy" onclick="buyNow('${product.id}')">Buy Now</button>
-            </div>
+        </div>
+        <div class="details">
+          <h1>${product.title}</h1>
+          <p class="author">By ${product.author}</p>
+          <p class="price">${product.currency} ${product.price.toLocaleString()}</p>
+          <p class="meta"><strong>Format:</strong> ${product.format}</p>
+          <p class="meta"><strong>Bonus:</strong> ${product.bonus}</p>
+          <div class="description">${product.description}</div>
+          <div class="highlights">
+            <h3>Highlights</h3>
+            <ul>
+              ${product.highlights.map(h => `<li>${h}</li>`).join("")}
+            </ul>
           </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function viewDetails(id) {
-      window.location.href = `product.html?id=${id}`;
+          <div class="buttons">
+            <a href="${product.sampleblob}" class="btn-sample" target="_blank">📖 Read Sample</a>
+            <button class="btn-buy" onclick="buyNow('${product.id}')">💳 Buy Now</button>
+          </div>
+        </div>
+      `;
     }
 
     function buyNow(id) {
-      // This will connect with generateLink.js → Flutterwave → redirect
       window.location.href = `/api/generateLink?productId=${id}`;
     }
 
-    loadProducts();
+    loadProduct();
   </script>
 </body>
 </html>

@@ -3,147 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ebook Details</title>
+  <title>Product Details</title>
   <link rel="stylesheet" href="css/style.css">
-  <script defer src="js/main.js"></script>
-  <style>
-    body {
-      font-family: "Inter", sans-serif;
-      margin: 0;
-      background: #fafafa;
-      color: #222;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: white;
-      border-radius: 1rem;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2rem;
-    }
-    .cover img {
-      width: 100%;
-      border-radius: 0.75rem;
-      object-fit: cover;
-    }
-    .details h1 {
-      font-size: 1.8rem;
-      margin: 0 0 0.5rem;
-      color: #111;
-    }
-    .details p.author {
-      margin: 0 0 1rem;
-      color: #555;
-    }
-    .price {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #22c55e;
-      margin-bottom: 1rem;
-    }
-    .meta {
-      font-size: 0.95rem;
-      color: #444;
-      margin-bottom: 1rem;
-    }
-    .description {
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-    .highlights {
-      background: #f9fafb;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .highlights h3 {
-      margin-top: 0;
-    }
-    .buttons {
-      display: flex;
-      gap: 1rem;
-    }
-    .buttons a, .buttons button {
-      flex: 1;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      font-weight: 600;
-      text-align: center;
-      text-decoration: none;
-    }
-    .btn-sample {
-      background: #e5e7eb;
-      color: #111;
-    }
-    .btn-buy {
-      background: #3b82f6;
-      color: white;
-    }
-    .btn-buy:hover { background: #2563eb; }
-    .back-link {
-      display: block;
-      margin: 1rem auto;
-      text-align: center;
-      font-size: 0.95rem;
-      color: #3b82f6;
-      text-decoration: none;
-    }
-  </style>
 </head>
 <body>
-  <div class="container" id="product-details">
-    <!-- JS injects ebook details here -->
-  </div>
-  <a href="products.html" class="back-link">← Back to Store</a>
+  <header>
+    <h1>📖 eBook Details</h1>
+    <nav>
+      <a href="products.html">⬅ Back to Store</a>
+    </nav>
+  </header>
 
-  <script>
-    async function loadProduct() {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
-      if (!id) return;
+  <main id="product-details" class="product-page"></main>
 
-      const res = await fetch("products.json");
-      const products = await res.json();
-      const product = products.find(p => p.id === id);
-      if (!product) return;
+  <footer>
+    <p>© 2025 Readify. All rights reserved.</p>
+  </footer>
 
-      const container = document.getElementById("product-details");
-      container.innerHTML = `
-        <div class="cover">
-          <img src="${product.cover}" alt="${product.title}">
-        </div>
-        <div class="details">
-          <h1>${product.title}</h1>
-          <p class="author">By ${product.author}</p>
-          <p class="price">${product.currency} ${product.price.toLocaleString()}</p>
-          <p class="meta"><strong>Format:</strong> ${product.format}</p>
-          <p class="meta"><strong>Bonus:</strong> ${product.bonus}</p>
-          <div class="description">${product.description}</div>
-          <div class="highlights">
-            <h3>Highlights</h3>
-            <ul>
-              ${product.highlights.map(h => `<li>${h}</li>`).join("")}
-            </ul>
-          </div>
-          <div class="buttons">
-            <a href="${product.sampleblob}" class="btn-sample" target="_blank">📖 Read Sample</a>
-            <button class="btn-buy" onclick="buyNow('${product.id}')">💳 Buy Now</button>
-          </div>
-        </div>
-      `;
-    }
-
-    function buyNow(id) {
-      window.location.href = `/api/generateLink?productId=${id}`;
-    }
-
-    loadProduct();
-  </script>
+  <script src="js/product.js"></script>
 </body>
 </html>

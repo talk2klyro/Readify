@@ -1,16 +1,15 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>E-Book Store – Catalog</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Catalog — Readify</title>
   <link rel="stylesheet" href="css/style.css" />
   <script defer src="js/main.js"></script>
 </head>
 <body>
-  <!-- Header -->
   <header>
-    <h1>📚 E-Book Store</h1>
+    <h1>Readify eBook Store</h1>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -19,30 +18,27 @@
     </nav>
   </header>
 
-  <!-- Catalog -->
   <main>
     <section class="catalog" id="catalog">
-      <!-- Books will be dynamically inserted here from products.json -->
+      <!-- populated by js/main.js -->
     </section>
   </main>
 
-  <!-- Modal for preview sample -->
+  <!-- Sample modal -->
   <div class="modal" id="sampleModal">
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
       <h2 id="modalTitle">Sample Preview</h2>
-      <iframe id="sampleFrame" src="" width="100%" height="400px"></iframe>
+      <iframe id="sampleFrame" src="" width="100%" height="500" style="border: none;"></iframe>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
-    <p>&copy; <span id="year"></span> E-Book Store. All rights reserved.</p>
+    <p>&copy; <span id="yearFooter"></span> Readify. All rights reserved.</p>
   </footer>
 
   <script>
-    // Update footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("yearFooter").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

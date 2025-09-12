@@ -1,81 +1,93 @@
-[
-  {
-    "id": "cucumber",
-    "title": "Make Every Cucumber Count: Storage & Logistics Hacks for Hot Zones",
-    "author": "By [Readify] – Nigerian Farmer & Agripreneur",
-    "price": 2099,
-    "currency": "NGN",
-    "format": "PDF",
-    "bonus": "Step-by-step checklists for harvesting, storage, and transport",
-    "cover": "https://i.postimg.cc/dQhRGC4D/20250911-172251-0000.png",
-    "blob": "/blobs/cucumber-ebook.pdf",
-    "sampleBlob": "/blobs/cucumber-sample.pdf",
-    "description": "Stop losing 30–40% of your cucumber harvest before it even reaches the market. This Nigerian-focused guide reveals low-cost, easy-to-implement hacks to reduce spoilage, extend freshness, and improve logistics — even without cold storage.",
-    "highlights": [
-      "🌅 Best harvesting practices — pick cucumbers at the right time to maximize shelf life",
-      "🏺 Affordable storage solutions — from clay pot coolers to simple DIY techniques",
-      "🚚 Safe packing & transport methods — even on rough roads",
-      "📈 Loss reduction strategies — cut spoilage by up to 50% and increase profits"
-    ]
-  },
-  {
-    "id": "stevia",
-    "title": "Sugar-Free Sweet Success: Step-by-Step Guide to Profitable Stevia Farming in Yobe",
-    "author": "By [Readify] – Nigerian Farmer & Agripreneur",
-    "price": 2899,
-    "currency": "NGN",
-    "format": "PDF",
-    "bonus": "Canva templates for labels, flyers, and checklists",
-    "cover": "https://i.postimg.cc/BZRTpvVp/file-000000002d486230bfe0e4519c491e8a.png",
-    "blob": "/blobs/stevia-ebook.pdf",
-    "sampleBlob": "/blobs/stevia-sample.pdf",
-    "description": "Turn one green leaf into your next profitable farm venture. This Nigerian-focused guide shows you exactly how to grow, harvest, and sell stevia in Yobe — with strategies tested under local conditions.",
-    "highlights": [
-      "🌱 Step-by-step planting instructions for Yobe soil and climate",
-      "💧 Watering, pruning, weeding, and pest management techniques",
-      "📦 Harvesting, drying, and packaging for local and export markets",
-      "📈 Marketing strategies to sell stevia and value-added products",
-      "💰 Budgeting and profit projections to maximize earnings"
-    ]
-  },
-  {
-    "id": "sage",
-    "title": "Grow, Use, Heal: Northern Sage Herb Manual You Can Trust",
-    "author": "By [Readify] – Nigerian Farmer & Herbalist",
-    "price": 2577,
-    "currency": "NGN",
-    "format": "PDF",
-    "bonus": "Appendices with herbal recipes, safety guides, and small-business tips",
-    "cover": "https://i.postimg.cc/rwsqp886/design-a-vibrant-professional-ebook-cove-Ia-DIl0ev-RD-u4u-ICx-Ov-Bs-A-9-Il-Kksn-RQvus-Cm-QPDIeif-A.jpg",
-    "blob": "/blobs/sage-ebook.pdf",
-    "sampleBlob": "/blobs/sage-sample.pdf",
-    "description": "Discover the healing power of sage with this Nigerian-focused manual. Learn how to grow sage in small spaces, prepare it safely, and use it for common health challenges — while exploring small business opportunities.",
-    "highlights": [
-      "🌱 How to grow sage in pots, sacks, or backyard spaces",
-      "🏺 Safe preparation methods for daily use and health benefits",
-      "🍵 Practical recipes and wellness routines for digestion, blood pressure, memory, and more",
-      "📈 Small business tips — turn your sage harvest into a community income stream",
-      "📝 Safety guidelines to ensure correct, effective usage"
-    ]
-  },
-  {
-    "id": "tomato",
-    "title": "Zero-Waste Tomato: How to Harvest, Store & Sell Without Losing Profit",
-    "author": "By [Readify] – Nigerian Farmer & Agripreneur",
-    "price": 3500,
-    "currency": "NGN",
-    "format": "PDF",
-    "bonus": "Checklists and action plans for harvesting, storage, and tomato products",
-    "cover": "https://i.postimg.cc/YCPMGJ9v/Gk-Wa9lu-VTQS8x-AS6z-U9-U4w.webp",
-    "blob": "/blobs/tomato-ebook.pdf",
-    "sampleBlob": "/blobs/tomato-sample.pdf",
-    "description": "Tomato is Nigeria’s most popular crop — but farmers and traders lose nearly half every year due to poor practices. This guide provides step-by-step methods to reduce spoilage, maximize profits, and make the most of every tomato.",
-    "highlights": [
-      "🌿 Harvest at the right stage to extend shelf life",
-      "🏺 Store tomatoes without cold rooms using affordable local methods",
-      "📦 Package and transport professionally to reduce bruising and loss",
-      "💰 Sell directly to better buyers for higher income",
-      "🍅 Turn ‘spoilt’ tomatoes into paste, dried tomatoes, or powder"
-    ]
+// js/main.js
+
+// Load products.json
+async function loadProducts() {
+  const res = await fetch("products.json");
+  return await res.json();
+}
+
+// ====== CATALOG PAGE ======
+async function renderCatalog() {
+  const container = document.querySelector(".catalog");
+  if (!container) return;
+
+  const products = await loadProducts();
+  container.innerHTML = "";
+
+  products.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "book-card";
+
+    card.innerHTML = `
+      <img src="${p.cover}" alt="${p.title}">
+      <h3>${p.title}</h3>
+      <p class="author">${p.author}</p>
+      <p class="price">₦${p.price.toLocaleString()}</p>
+      <button onclick="window.location.href='product.html?id=${p.id}'">
+        View Details
+      </button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// ====== PRODUCT PAGE ======
+async function renderProduct() {
+  const container = document.querySelector(".product-container");
+  if (!container) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  if (!id) {
+    container.innerHTML = "<p>Product not found.</p>";
+    return;
   }
-]
+
+  const products = await loadProducts();
+  const product = products.find(p => p.id === id);
+
+  if (!product) {
+    container.innerHTML = "<p>Product not found.</p>";
+    return;
+  }
+
+  // Render product detail
+  container.innerHTML = `
+    <div class="product-image">
+      <img src="${product.cover}" alt="${product.title}">
+    </div>
+    <div class="product-info">
+      <h2>${product.title}</h2>
+      <p class="author">${product.author}</p>
+      <p class="price">₦${product.price.toLocaleString()} ${product.currency}</p>
+      <p><strong>Format:</strong> ${product.format}</p>
+      <p><strong>Bonus:</strong> ${product.bonus}</p>
+      <a href="#" class="btn-buy">Buy Now</a>
+      <a href="${product.sampleBlob}" target="_blank" class="btn-outline">Read Sample</a>
+    </div>
+  `;
+
+  // Render description + highlights
+  const desc = document.createElement("div");
+  desc.className = "product-description";
+
+  desc.innerHTML = `
+    <h3>About this eBook</h3>
+    <p>${product.description}</p>
+    <h3>Highlights</h3>
+    <ul>
+      ${product.highlights.map(h => `<li>${h}</li>`).join("")}
+    </ul>
+  `;
+
+  container.parentNode.appendChild(desc);
+
+  // TODO: Hook up Flutterwave checkout to .btn-buy
+}
+
+// ====== INIT ======
+document.addEventListener("DOMContentLoaded", () => {
+  renderCatalog();
+  renderProduct();
+});

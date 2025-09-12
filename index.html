@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ebook Store</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <script defer src="js/main.js"></script>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Header -->
   <header>
+    <h1>Ebook Store</h1>
     <nav>
-      <h1>Ebook Store</h1>
       <ul>
-        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Catalog</a></li>
+        <li><a href="mailto:youremail@example.com">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <main id="catalog" class="catalog">
-    <!-- Books will be dynamically loaded from products.json -->
-  </main>
-
-  <!-- Modal for Samples -->
-  <div id="sampleModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeSample()">&times;</span>
-      <h2 id="sampleTitle"></h2>
-      <p id="sampleAuthor"></p>
-      <div id="sampleText"></div>
-      <button onclick="purchaseFromSample()">Buy This Ebook</button>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Discover Your Next Favorite Ebook</h2>
+      <p>Browse, sample, and securely purchase ebooks instantly. Enjoy seamless reading just like Amazon, but tailored for you.</p>
+      <a href="products.html" class="btn-buy">Shop Now</a>
     </div>
-  </div>
+  </section>
 
+  <!-- Featured Section -->
+  <section class="featured">
+    <h2>Featured Ebooks</h2>
+    <div class="catalog" id="featured-products">
+      <!-- Featured books loaded here by JS -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year"></span> Ebook Store. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Auto year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
   <!-- Vercel Analytics -->
   <script defer src="/_vercel/insights/script.js"></script>
 </body>

@@ -10,12 +10,12 @@
     "cover": "https://i.postimg.cc/dQhRGC4D/20250911-172251-0000.png",
     "blob": "blob://ebooks/cucumber.pdf",
     "sampleBlob": "blob://ebooks/cucumber-sample.pdf",
-    "description": "Stop losing 30–40% of your cucumber harvest before it even reaches the market. This Nigerian-focused guide reveals low-cost, easy-to-implement hacks to reduce spoilage, extend freshness, and improve logistics without cold storage.",
+    "description": "Stop losing 30–40% of your cucumber harvest before it even reaches the market. This practical, Nigerian-focused guide reveals low-cost, easy-to-implement hacks to reduce spoilage, extend freshness, and improve logistics — even without cold storage. Whether you’re a farmer, trader, or agribusiness hustler, this eBook will help you turn losses into profits by teaching methods tailored for Northern Nigeria and other hot zones.",
     "highlights": [
-      "🌅 Best harvesting practices — pick at the right time",
-      "🏺 Affordable storage — clay pot coolers & DIY methods",
-      "🚚 Safe packing & transport methods",
-      "📈 Cut spoilage by up to 50% and increase profits"
+      "🌅 Best harvesting practices — pick cucumbers at the right time to maximize shelf life",
+      "🏺 Affordable storage solutions — from clay pot coolers to simple DIY techniques",
+      "🚚 Safe packing & transport methods — even on rough roads",
+      "📈 Loss reduction strategies — cut spoilage by up to 50% and increase profits"
     ]
   },
   {
@@ -29,12 +29,13 @@
     "cover": "https://i.postimg.cc/BZRTpvVp/file-000000002d486230bfe0e4519c491e8a.png",
     "blob": "blob://ebooks/stevia.pdf",
     "sampleBlob": "blob://ebooks/stevia-sample.pdf",
-    "description": "Turn one green leaf into your next profitable farm venture. Learn how to grow, harvest, and sell stevia in Yobe with tested, step-by-step methods tailored for local farmers.",
+    "description": "Turn one green leaf into your next profitable farm venture. This practical, Nigerian-focused guide shows you exactly how to grow, harvest, and sell stevia in Yobe — with strategies tested under local conditions. Perfect for farmers, agripreneurs, and health-focused entrepreneurs, this step-by-step guide gives you all the tools you need to succeed, without costly trial and error.",
     "highlights": [
-      "🌱 Planting instructions for Yobe climate",
-      "💧 Watering, pruning, and pest control",
-      "📦 Harvesting & packaging for local/export",
-      "📈 Marketing strategies & profit projections"
+      "🌱 Step-by-step planting instructions for Yobe soil and climate",
+      "💧 Watering, pruning, weeding, and pest management techniques",
+      "📦 Harvesting, drying, and packaging for local and export markets",
+      "📈 Marketing strategies to sell stevia and value-added products",
+      "💰 Budgeting and profit projections — so you can maximize earnings"
     ]
   },
   {
@@ -48,12 +49,13 @@
     "cover": "https://i.postimg.cc/rwsqp886/design-a-vibrant-professional-ebook-cove-Ia-DIl0ev-RD-u4u-ICx-Ov-Bs-A-9-Il-Kksn-RQvus-Cm-QPDIeif-A.jpg",
     "blob": "blob://ebooks/sage.pdf",
     "sampleBlob": "blob://ebooks/sage-sample.pdf",
-    "description": "Discover the healing power of sage with this practical guide for Northern Nigerian families. Covers growing, preparing, and using sage for health, wellness, and small business opportunities.",
+    "description": "Discover the healing power of sage with this easy-to-follow, Nigerian-focused manual. Designed for Northern Nigerian families, this eBook teaches you how to grow sage in small spaces, prepare it safely, and use it for common health challenges — including blood pressure, digestion, women’s health, and memory support. Whether you want to improve family wellness, start a small herbal business, or share trusted natural remedies, this manual provides step-by-step guidance with practical, local examples.",
     "highlights": [
-      "🌱 Grow sage in pots, sacks, or backyards",
-      "🏺 Safe preparation & wellness recipes",
-      "🍵 Remedies for digestion, BP, memory",
-      "📈 Tips for herbal business opportunities"
+      "🌱 How to grow sage in pots, sacks, or backyard spaces",
+      "🏺 Safe preparation methods for daily use and health benefits",
+      "🍵 Practical recipes and wellness routines for digestion, blood pressure, memory, and more",
+      "📈 Small business tips — turn your sage harvest into a community income stream",
+      "📝 Safety guidelines and appendices to ensure correct, effective usage"
     ]
   },
   {
@@ -62,17 +64,19 @@
     "author": "By [Readify] – Nigerian Farmer & Agripreneur",
     "price": 3500,
     "currency": "NGN",
+    "internationalPrice": 9.99,
     "format": "PDF",
     "bonus": "Checklists and action plans for harvesting, storage, and value-added tomato products",
     "cover": "https://i.postimg.cc/YCPMGJ9v/Gk-Wa9lu-VTQS8x-AS6z-U9-U4w.webp",
     "blob": "blob://ebooks/tomato.pdf",
     "sampleBlob": "blob://ebooks/tomato-sample.pdf",
-    "description": "Nigeria’s most popular crop, tomato, loses nearly half its value every season due to spoilage. This eBook provides actionable methods to reduce waste and maximize profits.",
+    "description": "Tomato is Nigeria’s most popular crop — but farmers and traders lose nearly half of their harvest every year due to poor harvesting, storage, and transport practices. This Nigerian-focused eBook provides a step-by-step guide to reduce spoilage, maximize profits, and make the most of every tomato. Packed with Nigerian examples, checklists, and actionable steps, this eBook ensures you reduce waste, increase profits, and make the most of your hard work — no matter the size of your farm.",
     "highlights": [
-      "🌿 Harvest timing to extend shelf life",
-      "🏺 Storage without cold rooms",
-      "📦 Professional packaging & transport",
-      "🍅 Value-add: paste, dried, powder"
+      "🌿 Harvest at the right stage to extend shelf life",
+      "🏺 Store tomatoes without cold rooms using affordable, local methods",
+      "📦 Package and transport professionally to reduce bruising and loss",
+      "💰 Sell directly to better buyers for higher income",
+      "🍅 Turn “spoilt” tomatoes into paste, dried tomatoes, or powder — no wasted produce"
     ]
   }
-    ]
+]

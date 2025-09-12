@@ -1,0 +1,48 @@
+<!<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-Book Store – Catalog</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>📚 E-Book Store</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Catalog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Catalog -->
+  <main>
+    <section class="catalog" id="catalog">
+      <!-- Books will be dynamically inserted here from products.json -->
+    </section>
+  </main>
+
+  <!-- Modal for preview sample -->
+  <div class="modal" id="sampleModal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2 id="modalTitle">Sample Preview</h2>
+      <iframe id="sampleFrame" src="" width="100%" height="400px"></iframe>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year"></span> E-Book Store. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Update footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

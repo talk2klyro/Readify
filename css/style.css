@@ -1,3 +1,4 @@
+/* === GLOBAL === */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -17,6 +18,7 @@ nav ul {
   gap: 1rem;
 }
 
+/* === CATALOG PAGE (products.html) === */
 .catalog {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -94,3 +96,75 @@ button:hover {
   float: right;
   cursor: pointer;
 }
+
+/* === PRODUCT PAGE (product.html) === */
+.product-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  align-items: start;
+}
+
+.product-image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.product-info h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-info .author {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.product-info .price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #27ae60;
+  margin-bottom: 1rem;
+}
+
+.btn-buy {
+  display: inline-block;
+  padding: 0.8rem 1.2rem;
+  background: #ff6600;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+.btn-buy:hover {
+  background: #e65c00;
+}
+
+.btn-outline {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  border: 2px solid #555;
+  color: #555;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background: #555;
+  color: white;
+}
+
+.product-description {
+  padding: 2rem;
+  border-top: 1px solid #ddd;
+  background: #fafafa;
+}
+
+.product-description h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  }

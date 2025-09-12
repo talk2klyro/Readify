@@ -1,52 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ebook Store</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Readify eBook Store</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Header -->
   <header>
-    <h1>Ebook Store</h1>
+    <h1>Readify eBook Store</h1>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Catalog</a></li>
-        <li><a href="mailto:youremail@example.com">Contact</a></li>
+        <li><a href="mailto:hi2denix@gmail.com">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <h2>Discover Your Next Favorite Ebook</h2>
-      <p>Browse, sample, and securely purchase ebooks instantly. Enjoy seamless reading just like Amazon, but tailored for you.</p>
-      <a href="products.html" class="btn-buy">Shop Now</a>
+      <h2>Practical Nigerian Farming & Agribusiness eBooks</h2>
+      <p>Affordable, actionable guides written by local farmers — download instantly, start applying today.</p>
+      <a href="products.html" class="btn-buy">Browse Catalog</a>
     </div>
   </section>
 
-  <!-- Featured Section -->
   <section class="featured">
-    <h2>Featured Ebooks</h2>
-    <div class="catalog" id="featured-products">
-      <!-- Featured books loaded here by JS -->
-    </div>
+    <h2>Featured eBooks</h2>
+    <div class="catalog" id="featured-products"></div>
   </section>
 
-  <!-- Footer -->
   <footer>
-    <p>&copy; <span id="year"></span> Ebook Store. All rights reserved.</p>
+    <p>&copy; <span id="year"></span> Readify. All rights reserved.</p>
   </footer>
 
   <script src="js/main.js"></script>
   <script>
-    // Auto year
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // load featured top 3
+    (async function () {
+      try {
+        const res = await fetch('products.json');
+        const products = await res.json();
+        const featured = products.filter(p => p.featured).slice(0, 3);
+        const container = document.getElementById('featured-products');
+        featured.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'book-card';
+          card.innerHTML = `
+            <img src="${p.cover}" alt="${p.title}">
+            <h3>${p.title}</h3>
+            <p class="author">${p.author}</p>
+            <p class="price">${p.currency} ${p.price.toLocaleString()}</p>
+            <div class="button-row">
+              <button class="btn btn-secondary" onclick="openSample('${p.id}')">Sample</button>
+              <button class="btn btn-primary" onclick="location.href='product.html?id=${p.id}'">View</button>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    })();
   </script>
-  <!-- Vercel Analytics -->
+
+  <!-- Vercel Analytics (if you enabled) -->
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
-</html>
+  </html>

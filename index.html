@@ -1,38 +1,68 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ebook Store</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <script defer src="js/main.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Readify eBook Store</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
+    <h1>Readify eBooks</h1>
     <nav>
-      <h1>Ebook Store</h1>
       <ul>
-        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Catalog</a></li>
+        <li><a href="mailto:readify@example.com">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <main id="catalog" class="catalog">
-    <!-- Books will be dynamically loaded from products.json -->
-  </main>
-
-  <!-- Modal for Samples -->
-  <div id="sampleModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeSample()">&times;</span>
-      <h2 id="sampleTitle"></h2>
-      <p id="sampleAuthor"></p>
-      <div id="sampleText"></div>
-      <button onclick="purchaseFromSample()">Buy This Ebook</button>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Practical Nigerian Farming & Agribusiness eBooks</h2>
+      <p>Affordable, actionable guides written by local farmers — download instantly, start applying today.</p>
+      <a href="products.html" class="btn-buy">Browse Catalog</a>
     </div>
-  </div>
+  </section>
 
-  <!-- Vercel Analytics -->
-  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Featured Products -->
+  <section class="featured">
+    <h2>Featured eBooks</h2>
+    <div class="catalog" id="featured-products">
+      <!-- Will be injected by JS -->
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Readify. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Show top 2 featured products on homepage
+    document.addEventListener("DOMContentLoaded", async () => {
+      const res = await fetch("products.json");
+      const products = await res.json();
+      const featured = products.slice(0, 2); // pick first 2 (can be adjusted)
+      const container = document.getElementById("featured-products");
+
+      featured.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "book-card";
+        card.innerHTML = `
+          <img src="${p.cover}" alt="${p.title}">
+          <h3>${p.title}</h3>
+          <p class="author">${p.author}</p>
+          <p class="price">₦${p.price.toLocaleString()}</p>
+          <button onclick="window.location.href='product.html?id=${p.id}'">
+            View Details
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    });
+  </script>
 </body>
 </html>

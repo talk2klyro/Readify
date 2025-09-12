@@ -1,102 +1,82 @@
-// js/main.js
+async function loadCatalog() {
+  const res = await fetch("products.json");
+  const products = await res.json();
+  const catalog = document.getElementById("catalog");
 
-// Load products.json once
-async function loadProducts() {
-  const response = await fetch("products.json");
-  return await response.json();
-}
-
-// Detect page
-const currentPage = window.location.pathname.split("/").pop();
-
-// Render catalog (products.html)
-async function renderCatalog() {
-  const products = await loadProducts();
-  const catalog = document.querySelector(".catalog");
-
-  if (!catalog) return;
-
-  products.forEach(product => {
+  products.forEach(book => {
     const card = document.createElement("div");
-    card.classList.add("book-card");
-
+    card.className = "book-card";
     card.innerHTML = `
-      <img src="${product.cover}" alt="${product.title}">
-      <h3>${product.title}</h3>
-      <p class="author">by ${product.author}</p>
-      <p class="price">${product.currency}${product.price}</p>
-      <button onclick="window.location.href='product.html?id=${product.id}'">
-        View Details
-      </button>
+      <img src="${book.cover}" alt="${book.title}" />
+      <h3>${book.title}</h3>
+      <p>by ${book.author}</p>
+      <p><strong>$${book.price}</strong></p>
+      <button onclick="openSample('${book.id}')">Read Sample</button>
+      <button onclick="simulatePurchase('${book.id}')">Buy Now</button>
     `;
-
     catalog.appendChild(card);
   });
 }
 
-// Render single product (product.html)
-async function renderProductPage() {
-  const params = new URLSearchParams(window.location.search);
-  const productId = params.get("id");
-
-  if (!productId) return;
-
-  const products = await loadProducts();
-  const product = products.find(p => p.id === productId);
-
-  if (!product) {
-    document.querySelector(".product-container").innerHTML =
-      "<p>Product not found.</p>";
-    return;
+const bookSamples = {
+  "digital-revolution": {
+    title: "The Digital Revolution",
+    author: "John Doe",
+    content: `<p>Sample chapter coming soon...</p>`
+  },
+  "future-minds": {
+    title: "Future Minds",
+    author: "Dr. Michael Chen",
+    content: `<p>Sample chapter coming soon...</p>`
   }
+};
 
-  // Fill product details
-  document.querySelector(".product-image").innerHTML = `
-    <img src="${product.cover}" alt="${product.title}">
-  `;
+let currentSample = null;
 
-  document.querySelector(".product-info").innerHTML = `
-    <h2>${product.title}</h2>
-    <p class="author">by ${product.author}</p>
-    <p class="price">${product.currency}${product.price}</p>
-    <a class="btn-buy" href="/api/generateLink?id=${product.id}">Buy Now</a>
-    <a class="btn-outline" href="${product.sampleBlob}" target="_blank">Read Sample</a>
-  `;
-
-  document.querySelector(".product-description").innerHTML = `
-    <h3>Description</h3>
-    <p>${product.description}</p>
-    <h3>Highlights</h3>
-    <ul>
-      ${product.highlights.map(h => `<li>${h}</li>`).join("")}
-    </ul>
-  `;
+function openSample(bookId) {
+  const sample = bookSamples[bookId];
+  if (!sample) return alert("Sample not available.");
+  currentSample = bookId;
+  document.getElementById("sampleTitle").textContent = sample.title;
+  document.getElementById("sampleAuthor").textContent = `by ${sample.author}`;
+  document.getElementById("sampleText").innerHTML = sample.content;
+  document.getElementById("sampleModal").classList.add("active");
 }
 
-// Init ripple effect on buttons
-function initRippleEffect() {
-  document.addEventListener("click", function (e) {
-    if (e.target.tagName === "BUTTON") {
-      const circle = document.createElement("span");
-      circle.classList.add("ripple");
-      e.target.appendChild(circle);
-
-      const rect = e.target.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      circle.style.width = circle.style.height = `${size}px`;
-      circle.style.left = `${e.clientX - rect.left - size / 2}px`;
-      circle.style.top = `${e.clientY - rect.top - size / 2}px`;
-
-      setTimeout(() => circle.remove(), 600);
-    }
-  });
+function closeSample() {
+  document.getElementById("sampleModal").classList.remove("active");
+  currentSample = null;
 }
 
-// Run page-specific functions
-if (currentPage === "products.html") {
-  renderCatalog();
-} else if (currentPage === "product.html") {
-  renderProductPage();
+function purchaseFromSample() {
+  if (currentSample) {
+    closeSample();
+    simulatePurchase(currentSample);
+  }
 }
 
-initRippleEffect();
+function simulatePurchase(bookId) {
+  alert(`🎉 Thank you for purchasing "${bookId}"! 
+Payment processed via Flutterwave. 
+Download link will be emailed or provided.`);
+}
+
+// Ripple animation
+document.addEventListener("click", e => {
+  if (e.target.tagName === "BUTTON") {
+    const button = e.target;
+    const ripple = document.createElement("span");
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    ripple.style.width = ripple.style.height = size + "px";
+    ripple.style.left = x + "px";
+    ripple.style.top = y + "px";
+    ripple.className = "ripple";
+    button.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  }
+});
+
+document.addEventListener("DOMContentLoaded", loadCatalog);

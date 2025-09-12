@@ -1,53 +1,22 @@
-/* === GLOBAL === */
 body {
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
   background: #f8f8f8;
   color: #333;
-  line-height: 1.6;
 }
 
 header {
   background: linear-gradient(90deg, #ff6b6b, #f06595);
   color: white;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header h1 {
-  font-size: 1.5rem;
-  margin: 0;
+  padding: 1rem;
 }
 
 nav ul {
   list-style: none;
   display: flex;
   gap: 1rem;
-  margin: 0;
-  padding: 0;
-}
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-}
-nav ul li a:hover {
-  text-decoration: underline;
 }
 
-/* Footer */
-footer {
-  background: #222;
-  color: #ccc;
-  text-align: center;
-  padding: 2rem 1rem;
-  font-size: 0.9rem;
-  margin-top: 3rem;
-}
-
-/* === CATALOG PAGE (products.html) === */
 .catalog {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -60,49 +29,27 @@ footer {
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
+  transition: transform 0.2s;
 }
 .book-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
 .book-card img {
   max-width: 100%;
   border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.book-card h3 {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-}
-
-.book-card .author {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.book-card .price {
-  font-weight: bold;
-  color: #27ae60;
-  margin: 0.8rem 0;
 }
 
 button {
-  margin-top: auto;
+  margin-top: 1rem;
   padding: 0.6rem 1.2rem;
   background: #ff6b6b;
   border: none;
   border-radius: 8px;
   color: white;
-  font-size: 0.95rem;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: background 0.3s ease;
 }
 button:hover {
   background: #f06595;
@@ -132,7 +79,6 @@ button:hover {
   background: rgba(0,0,0,0.6);
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 .modal.active {
   display: flex;
@@ -143,98 +89,8 @@ button:hover {
   border-radius: 12px;
   max-width: 600px;
   width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
 }
 .close {
   float: right;
   cursor: pointer;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-/* === PRODUCT PAGE (product.html) === */
-.product-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 2rem;
-  align-items: start;
-}
-@media (max-width: 768px) {
-  .product-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-.product-image img {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-}
-
-.product-info h2 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.product-info .author {
-  color: #555;
-  margin-bottom: 1rem;
-}
-
-.product-info .price {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #27ae60;
-  margin-bottom: 1rem;
-}
-
-.btn-buy {
-  display: inline-block;
-  padding: 0.8rem 1.2rem;
-  background: #ff6600;
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-.btn-buy:hover {
-  background: #e65c00;
-}
-
-.btn-outline {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.6rem 1rem;
-  border: 2px solid #555;
-  color: #555;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-.btn-outline:hover {
-  background: #555;
-  color: white;
-}
-
-.product-description {
-  padding: 2rem;
-  border-top: 1px solid #ddd;
-  background: #fafafa;
-}
-
-.product-description h3 {
-  margin-top: 1.5rem;
-  margin-bottom: 0.8rem;
-}
-
-.product-description ul {
-  padding-left: 1.5rem;
-  list-style: disc;
-}
-.product-description ul li {
-  margin-bottom: 0.5rem;
   }

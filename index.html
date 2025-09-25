@@ -1,73 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Readify eBook Store</title>
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Readify eBook Store | Tier 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:#3b82f6;
+    --secondary:#10b981;
+    --accent:#f59e0b;
+    --bg:#f9fafb;
+    --text:#111827;
+    --muted:#6b7280;
+    --radius:12px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+
+  header{
+    background:#fff;
+    padding:20px 40px;
+    display:flex;justify-content:space-between;align-items:center;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+    position:sticky;top:0;z-index:10;
+  }
+  header .logo{font-weight:700;color:var(--primary);font-size:1.5rem;}
+  nav a{margin-left:20px;color:var(--text);font-weight:500;transition:0.3s;}
+  nav a:hover{color:var(--primary);}
+
+  /* Hero with Wave / Diagonal */
+  .hero{
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    color:white;
+    padding:120px 20px 60px 20px;
+    text-align:center;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+  .hero h1{font-size:3rem;margin-bottom:15px;}
+  .hero p{font-size:1.2rem;margin-bottom:30px;opacity:0.85;}
+  .hero .btn{padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;transition:all 0.3s;}
+  .btn-primary{background:white;color:var(--primary);}
+  .btn-primary:hover{background:var(--secondary);color:white;transform:scale(1.05);}
+  .btn-outline{border:2px solid white;color:white;}
+  .btn-outline:hover{background:white;color:var(--primary);transform:scale(1.05);}
+
+  /* Featured eBooks */
+  section{padding:80px 20px;}
+  h2{text-align:center;font-size:2.5rem;color:var(--primary);margin-bottom:50px;position:relative;}
+  h2::after{content:'';display:block;width:60px;height:4px;background:var(--primary);margin:10px auto 0;border-radius:2px;}
+
+  .catalog{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+  }
+  .book-card{
+    background:#fff;
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    transition:transform 0.3s, box-shadow 0.3s;
+    position:relative;
+  }
+  .book-card:hover{transform:translateY(-8px);box-shadow:0 12px 35px rgba(0,0,0,0.15);}
+  .book-card img{width:100%;height:300px;object-fit:cover;}
+  .book-card h3{margin:12px 15px 5px;color:var(--primary);}
+  .book-card .author{margin:0 15px 10px;font-size:0.9rem;color:var(--muted);}
+  .book-card .price{margin:0 15px 10px;font-weight:600;}
+  .book-card .button-row{display:flex;gap:10px;padding:0 15px 15px;}
+
+  .btn-secondary{background:var(--muted);color:white;padding:8px 16px;border-radius:var(--radius);cursor:pointer;}
+  .btn-secondary:hover{background:var(--accent);}
+
+  footer{
+    text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;border-top:1px solid #e5e7eb;
+  }
+
+  /* Responsive */
+  @media(max-width:768px){
+    .hero h1{font-size:2rem;}
+    .hero p{font-size:1rem;}
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Readify eBook Store</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Catalog</a></li>
-        <li><a href="mailto:hi2denix@gmail.com">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h2>Practical Nigerian Farming & Agribusiness eBooks</h2>
-      <p>Affordable, actionable guides written by local farmers — download instantly, start applying today.</p>
-      <a href="products.html" class="btn-buy">Browse Catalog</a>
+<header>
+  <div class="logo">Readify</div>
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#featured">Catalog</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="hero">
+  <h1>Lorem Ipsum eBooks</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec nulla ut lectus imperdiet commodo.</p>
+  <a href="#featured" class="btn btn-primary">Browse Catalog</a>
+  <a href="#contact" class="btn btn-outline">Contact Us</a>
+</section>
+
+<section id="featured">
+  <h2>Featured eBooks</h2>
+  <div class="catalog">
+    <!-- Placeholder cards -->
+    <div class="book-card">
+      <img src="https://via.placeholder.com/300x300" alt="Book 1">
+      <h3>Lorem Ipsum 1</h3>
+      <p class="author">John Doe</p>
+      <p class="price">$10</p>
+      <div class="button-row">
+        <button class="btn-secondary">Sample</button>
+        <button class="btn-primary">View</button>
+      </div>
     </div>
-  </section>
+    <div class="book-card">
+      <img src="https://via.placeholder.com/300x300" alt="Book 2">
+      <h3>Lorem Ipsum 2</h3>
+      <p class="author">Jane Smith</p>
+      <p class="price">$12</p>
+      <div class="button-row">
+        <button class="btn-secondary">Sample</button>
+        <button class="btn-primary">View</button>
+      </div>
+    </div>
+    <div class="book-card">
+      <img src="https://via.placeholder.com/300x300" alt="Book 3">
+      <h3>Lorem Ipsum 3</h3>
+      <p class="author">Alice Lee</p>
+      <p class="price">$8</p>
+      <div class="button-row">
+        <button class="btn-secondary">Sample</button>
+        <button class="btn-primary">View</button>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <section class="featured">
-    <h2>Featured eBooks</h2>
-    <div class="catalog" id="featured-products"></div>
-  </section>
+<section id="contact">
+  <h2>Contact Us</h2>
+  <form style="max-width:500px;margin:auto;display:flex;flex-direction:column;gap:12px;">
+    <input type="text" placeholder="Name" required style="padding:12px;border-radius:var(--radius);border:1px solid #d1d5db;">
+    <input type="email" placeholder="Email" required style="padding:12px;border-radius:var(--radius);border:1px solid #d1d5db;">
+    <textarea placeholder="Message" required style="padding:12px;border-radius:var(--radius);border:1px solid #d1d5db;"></textarea>
+    <button type="submit" class="btn btn-primary">Send Message</button>
+  </form>
+</section>
 
-  <footer>
-    <p>&copy; <span id="year"></span> Readify. All rights reserved.</p>
-  </footer>
+<footer>
+  <p>&copy; <span id="year"></span> Readify eBook Store</p>
+</footer>
 
-  <script src="js/main.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
-    // load featured top 3
-    (async function () {
-      try {
-        const res = await fetch('products.json');
-        const products = await res.json();
-        const featured = products.filter(p => p.featured).slice(0, 3);
-        const container = document.getElementById('featured-products');
-        featured.forEach(p => {
-          const card = document.createElement('div');
-          card.className = 'book-card';
-          card.innerHTML = `
-            <img src="${p.cover}" alt="${p.title}">
-            <h3>${p.title}</h3>
-            <p class="author">${p.author}</p>
-            <p class="price">${p.currency} ${p.price.toLocaleString()}</p>
-            <div class="button-row">
-              <button class="btn btn-secondary" onclick="openSample('${p.id}')">Sample</button>
-              <button class="btn btn-primary" onclick="location.href='product.html?id=${p.id}'">View</button>
-            </div>
-          `;
-          container.appendChild(card);
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    })();
-  </script>
-
-  <!-- Vercel Analytics (if you enabled) -->
-  <script defer src="/_vercel/insights/script.js"></script>
 </body>
-  </html>
+</html>

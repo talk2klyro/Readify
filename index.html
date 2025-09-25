@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Readify eBook Store — Library</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #ff7f50;
+  --secondary: #1abc9c;
+  --accent: #f59e0b;
+  --bg: #f9fafb;
+  --text: #111827;
+  --muted: #6b7280;
+  --radius: 12px;
+}
+
+* {margin:0;padding:0;box-sizing:border-box;}
+body {font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+
+header {
+  background:#fff;padding:20px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+  position:sticky;top:0;z-index:10;
+}
+header .logo {font-weight:700;color:var(--primary);font-size:1.5rem;}
+nav a {margin-left:20px;color:var(--text);font-weight:500;transition:0.3s;}
+nav a:hover {color:var(--primary);}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color:white;
+  padding:120px 20px 60px 20px;
+  text-align:center;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+.hero h1 {font-size:3rem;margin-bottom:15px;}
+.hero p {font-size:1.2rem;margin-bottom:30px;opacity:0.85;}
+.hero .btn {padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;transition:all 0.3s;}
+.btn-primary {background:white;color:var(--primary);}
+.btn-primary:hover {background:var(--secondary);color:white;transform:scale(1.05);}
+.btn-outline {border:2px solid white;color:white;}
+.btn-outline:hover {background:white;color:var(--primary);transform:scale(1.05);}
+
+/* Catalog */
+section {padding:80px 20px;}
+h2 {text-align:center;font-size:2.5rem;color:var(--primary);margin-bottom:50px;position:relative;}
+h2::after {content:'';display:block;width:60px;height:4px;background:var(--primary);margin:10px auto 0;border-radius:2px;}
+
+.catalog {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+  position:relative;
+}
+
+.book-card {
+  background:#fff;border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+  transition:transform 0.3s, box-shadow 0.3s;position:relative;
+}
+.book-card:hover {transform:translateY(-8px);box-shadow:0 12px 35px rgba(0,0,0,0.15);}
+.book-card img {width:100%;height:300px;object-fit:cover;}
+.book-card h3 {margin:12px 15px 5px;color:var(--primary);}
+.book-card .author {margin:0 15px 10px;font-size:0.9rem;color:var(--muted);}
+.book-card .price {margin:0 15px 10px;font-weight:600;}
+.book-card .button-row {display:flex;gap:10px;padding:0 15px 15px;}
+.btn-secondary {background:var(--muted);color:white;padding:8px 16px;border-radius:var(--radius);cursor:pointer;}
+.btn-secondary:hover {background:var(--accent);}
+.btn-primary-small {background:var(--primary);color:white;padding:8px 16px;border-radius:var(--radius);cursor:pointer;}
+.btn-primary-small:hover {background:var(--secondary);}
+
+/* Hover PDF preview */
+.preview-carousel {
+  position: absolute;
+  width: 220px;height:260px;
+  border-radius:12px;overflow:hidden;
+  background:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  display:none;z-index:100;pointer-events:none;transition:opacity 0.3s;
+}
+.preview-carousel iframe {width:100%;height:100%;border:none;}
+
+/* Footer */
+footer {text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;border-top:1px solid #e5e7eb;}
+
+/* Responsive */
+@media(max-width:768px){
+  .hero h1{font-size:2rem;}
+  .hero p{font-size:1rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Readify</div>
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#catalog">Catalog</a>
+  </nav>
+</header>
+
+<section class="hero" id="hero">
+  <h1>Readify eBook Store</h1>
+  <p>Practical guides, Nigerian-focused, ready for download.</p>
+  <a href="#catalog" class="btn btn-primary">Browse Catalog</a>
+</section>
+
+<section id="catalog">
+  <h2>Featured eBooks</h2>
+  <div class="catalog" id="catalog-grid"></div>
+</section>
+
+<!-- Hover Preview Carousel -->
+<div class="preview-carousel" id="previewCarousel">
+  <iframe id="previewFrame" src=""></iframe>
+</div>
+
+<footer>
+  <p>&copy; <span id="year"></span> Readify eBook Store</p>
+</footer>
+
+<script>
+// Set current year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Fetch JSON and render catalog
+async function loadCatalog() {
+  try {
+    const res = await fetch('products.json');
+    const products = await res.json();
+    const container = document.getElementById('catalog-grid');
+
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'book-card';
+      card.dataset.sample = p.sampleBlob;
+
+      card.innerHTML = `
+        <img src="${p.cover}" alt="${p.title} Cover" />
+        <h3>${p.title}</h3>
+        <p class="author">${p.author}</p>
+        <p class="price">${p.currency} ${p.price.toLocaleString()}</p>
+        <div class="button-row">
+          <button class="btn-secondary" onclick="openSample('${p.sampleBlob}')">Sample</button>
+          <button class="btn-primary-small" onclick="location.href='product.html?id=${p.id}'">View</button>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    attachPreviewHover();
+  } catch (err) {
+    console.error('Error loading catalog:', err);
+  }
+}
+
+// Hover preview logic
+function attachPreviewHover() {
+  const cards = document.querySelectorAll('.book-card');
+  const carousel = document.getElementById('previewCarousel');
+  const frame = document.getElementById('previewFrame');
+
+  cards.forEach(card => {
+    const sample = card.dataset.sample;
+    card.addEventListener('mouseenter', e => {
+      frame.src = sample;
+      carousel.style.display = 'block';
+      positionCarousel(e);
+    });
+    card.addEventListener('mousemove', e => positionCarousel(e));
+    card.addEventListener('mouseleave', () => {
+      carousel.style.display = 'none';
+      frame.src = '';
+    });
+  });
+
+  function positionCarousel(e) {
+    const offsetX = 20, offsetY = 20;
+    carousel.style.left = (e.pageX + offsetX) + 'px';
+    carousel.style.top = (e.pageY + offsetY) + 'px';
+  }
+}
+
+// Open sample manually (button)
+function openSample(url) {
+  window.open(url, '_blank');
+}
+
+// Initialize
+loadCatalog();
+</script>
+
+</body>
+</html>￼EnterYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Readify eBook Store — Library</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #ff7f50;
+  --secondary: #1abc9c;
+  --accent: #f59e0b;
+  --bg: #f9fafb;
+  --text: #111827;
+  --muted: #6b7280;
+  --radius: 12px;
+}
+
+* {margin:0;padding:0;box-sizing:border-box;}
+body {font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+
+header {
+  background:#fff;padding:20px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+  position:sticky;top:0;z-index:10;
+}
+header .logo {font-weight:700;color:var(--primary);font-size:1.5rem;}
+nav a {margin-left:20px;color:var(--text);font-weight:500;transition:0.3s;}
+nav a:hover {color:var(--primary);}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color:white;
+  padding:120px 20px 60px 20px;
+  text-align:center;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+.hero h1 {font-size:3rem;margin-bottom:15px;}
+.hero p {font-size:1.2rem;margin-bottom:30px;opacity:0.85;}
+.hero .btn {padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;transition:all 0.3s;}
+.btn-primary {background:white;color:var(--primary);}
+.btn-primary:hover {background:var(--secondary);color:white;transform:scale(1.05);}
+.btn-outline {border:2px solid white;color:white;}
+.btn-outline:hover {background:white;color:var(--primary);transform:scale(1.05);}
+
+/* Catalog */
+section {padding:80px 20px;}
+h2 {text-align:center;font-size:2.5rem;color:var(--primary);margin-bottom:50px;position:relative;}
+h2::after {content:'';display:block;width:60px;height:4px;background:var(--primary);margin:10px auto 0;border-radius:2px;}
+
+.catalog {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+  position:relative;
+}
+
+.book-card {
+  background:#fff;border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+  transition:transform 0.3s, box-shadow 0.3s;position:relative;
+}
+.book-card:hover {transform:translateY(-8px);box-shadow:0 12px 35px rgba(0,0,0,0.15);}
+.book-card img {width:100%;height:300px;object-fit:cover;}
+.book-card h3 {margin:12px 15px 5px;color:var(--primary);}
+.book-card .author {margin:0 15px 10px;font-size:0.9rem;color:var(--muted);}
+.book-card .price {margin:0 15px 10px;font-weight:600;}
+.book-card .button-row {display:flex;gap:10px;padding:0 15px 15px;}
+.btn-secondary {background:var(--muted);color:white;padding:8px 16px;border-radius:var(--radius);cursor:pointer;}
+.btn-secondary:hover {background:var(--accent);}
+.btn-primary-small {background:var(--primary);color:white;padding:8px 16px;border-radius:var(--radius);cursor:pointer;}
+.btn-primary-small:hover {background:var(--secondary);}
+
+/* Hover PDF preview */
+.preview-carousel {
+  position: absolute;
+  width: 220px;height:260px;
+  border-radius:12px;overflow:hidden;
+  background:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  display:none;z-index:100;pointer-events:none;transition:opacity 0.3s;
+}
+.preview-carousel iframe {width:100%;height:100%;border:none;}
+
+/* Footer */

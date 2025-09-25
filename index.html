@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Readify eBook Store | Tier 2</title>
+<title>Readify eBook Store</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -26,25 +26,29 @@
     box-shadow:0 5px 20px rgba(0,0,0,0.05);
     position:sticky;top:0;z-index:10;
   }
-  header .logo{font-weight:700;color:var(--primary);font-size:1.5rem;}
+  header .logo{font-weight:700;color:var(--primary);font-size:1.6rem;}
   nav a{margin-left:20px;color:var(--text);font-weight:500;transition:0.3s;}
   nav a:hover{color:var(--primary);}
 
-  /* Hero with Wave / Diagonal */
+  /* Hero */
   .hero{
     background: linear-gradient(135deg, #3b82f6, #10b981);
     color:white;
     padding:120px 20px 60px 20px;
     text-align:center;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    position:relative;
   }
   .hero h1{font-size:3rem;margin-bottom:15px;}
-  .hero p{font-size:1.2rem;margin-bottom:30px;opacity:0.85;}
-  .hero .btn{padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;transition:all 0.3s;}
+  .hero p{font-size:1.2rem;margin-bottom:30px;opacity:0.9;}
+  .hero .btn{padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;transition:all 0.3s;margin:5px;}
   .btn-primary{background:white;color:var(--primary);}
   .btn-primary:hover{background:var(--secondary);color:white;transform:scale(1.05);}
   .btn-outline{border:2px solid white;color:white;}
   .btn-outline:hover{background:white;color:var(--primary);transform:scale(1.05);}
+
+  /* Wave SVG */
+  .hero svg{position:absolute;bottom:0;left:0;width:100%;height:80px;display:block;}
+  .hero svg path{fill:var(--bg);}
 
   /* Featured eBooks */
   section{padding:80px 20px;}
@@ -74,14 +78,18 @@
   .btn-secondary{background:var(--muted);color:white;padding:8px 16px;border-radius:var(--radius);cursor:pointer;}
   .btn-secondary:hover{background:var(--accent);}
 
-  footer{
-    text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;border-top:1px solid #e5e7eb;
-  }
+  footer{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;border-top:1px solid #e5e7eb;}
+
+  /* Contact Form */
+  #contact form{max-width:500px;margin:auto;display:flex;flex-direction:column;gap:12px;}
+  #contact input,#contact textarea{padding:12px;border-radius:var(--radius);border:1px solid #d1d5db;transition:0.3s;}
+  #contact input:focus,#contact textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 8px rgba(59,130,246,0.3);}
 
   /* Responsive */
   @media(max-width:768px){
     .hero h1{font-size:2rem;}
     .hero p{font-size:1rem;}
+    .book-card img{height:250px;}
   }
 </style>
 </head>
@@ -97,55 +105,26 @@
 </header>
 
 <section class="hero" id="hero">
-  <h1>Lorem Ipsum eBooks</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec nulla ut lectus imperdiet commodo.</p>
+  <h1>Practical Nigerian eBooks</h1>
+  <p>Affordable, actionable guides written by local authors — download instantly and start applying today.</p>
   <a href="#featured" class="btn btn-primary">Browse Catalog</a>
   <a href="#contact" class="btn btn-outline">Contact Us</a>
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+    <path d="M0,0 C720,100 720,0 1440,80 L1440,0 L0,0 Z"></path>
+  </svg>
 </section>
 
 <section id="featured">
   <h2>Featured eBooks</h2>
-  <div class="catalog">
-    <!-- Placeholder cards -->
-    <div class="book-card">
-      <img src="https://via.placeholder.com/300x300" alt="Book 1">
-      <h3>Lorem Ipsum 1</h3>
-      <p class="author">John Doe</p>
-      <p class="price">$10</p>
-      <div class="button-row">
-        <button class="btn-secondary">Sample</button>
-        <button class="btn-primary">View</button>
-      </div>
-    </div>
-    <div class="book-card">
-      <img src="https://via.placeholder.com/300x300" alt="Book 2">
-      <h3>Lorem Ipsum 2</h3>
-      <p class="author">Jane Smith</p>
-      <p class="price">$12</p>
-      <div class="button-row">
-        <button class="btn-secondary">Sample</button>
-        <button class="btn-primary">View</button>
-      </div>
-    </div>
-    <div class="book-card">
-      <img src="https://via.placeholder.com/300x300" alt="Book 3">
-      <h3>Lorem Ipsum 3</h3>
-      <p class="author">Alice Lee</p>
-      <p class="price">$8</p>
-      <div class="button-row">
-        <button class="btn-secondary">Sample</button>
-        <button class="btn-primary">View</button>
-      </div>
-    </div>
-  </div>
+  <div class="catalog" id="catalog"></div>
 </section>
 
 <section id="contact">
   <h2>Contact Us</h2>
-  <form style="max-width:500px;margin:auto;display:flex;flex-direction:column;gap:12px;">
-    <input type="text" placeholder="Name" required style="padding:12px;border-radius:var(--radius);border:1px solid #d1d5db;">
-    <input type="email" placeholder="Email" required style="padding:12px;border-radius:var(--radius);border:1px solid #d1d5db;">
-    <textarea placeholder="Message" required style="padding:12px;border-radius:var(--radius);border:1px solid #d1d5db;"></textarea>
+  <form action="mailto:hi2denix@gmail.com" method="POST">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <textarea name="message" placeholder="Message" required></textarea>
     <button type="submit" class="btn btn-primary">Send Message</button>
   </form>
 </section>
@@ -156,7 +135,37 @@
 
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// Load eBooks dynamically from JSON
+(async function(){
+  try {
+    const res = await fetch('products.json');
+    const products = await res.json();
+    const container = document.getElementById('catalog');
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'book-card';
+      card.innerHTML = `
+        <img src="${p.cover}" alt="${p.title}">
+        <h3>${p.title}</h3>
+        <p class="author">${p.author}</p>
+        <p class="price">${p.currency} ${p.price.toLocaleString()}</p>
+        <div class="button-row">
+          <button class="btn-secondary" onclick="openSample('${p.id}')">Sample</button>
+          <button class="btn-primary" onclick="location.href='product.html?id=${p.id}'">View</button>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  } catch(err){console.error(err);}
+})();
+
+// Sample preview modal function
+function openSample(id){
+  const url = `samples/${id}.pdf`;
+  window.open(url, '_blank');
+}
 </script>
 
 </body>
-</html>
+      </html>
